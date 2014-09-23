@@ -530,6 +530,8 @@ module.exports = function (grunt) {
         function parseConstructor(fileContents) {
             // Extract details from constructor function
             // constructor($window: ng.IWindowService) {
+            // constructor(private $window: ng.IWindowService) {
+            // constructor(public $window: ng.IWindowService) {
             var regex = /constructor\s*\(\s*([^(]*)\s*\)\s*{/;
             var matches = fileContents.match(regex);
             var result = {};
@@ -539,7 +541,7 @@ module.exports = function (grunt) {
                 if (matches[1]) {
                     matches[1].split(",").forEach(function (arg) {
                         var argParts = arg.split(":");
-                        var a = { name: argParts[0].trim() };
+                        var a = { name: argParts[0].trim().replace(/^(private|public)\s/,"") };
                         if (argParts.length > 1) {
                             a.type = argParts[1].trim();
                         }

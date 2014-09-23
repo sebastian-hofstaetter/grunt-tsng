@@ -16,4 +16,4 @@ sample/js
 tests/*/actual
 
 # Processed files
-*.ng.ts
+sample/**/*.ng.ts
